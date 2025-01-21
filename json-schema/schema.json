@@ -20,13 +20,12 @@
         "$comment": "This is the schema for STAC Items.",
         "type": "object",
         "required": [
-          "type",
-          "atds"
+          "type"
         ],
         "properties": {
           "type": {
             "const": "Feature"
-          },
+          }
         },
         "allOf": [
           {
@@ -38,13 +37,12 @@
         "$comment": "This is the schema for STAC Collections.",
         "type": "object",
         "required": [
-          "type",
-          "atds"¡
+          "type"
         ],
         "properties": {
           "type": {
             "const": "Collection"
-          },
+          }
         },
         "allOf": [
           {
