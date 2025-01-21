@@ -5,7 +5,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions: write
+    permissions: write-all
     steps:
       - name: Inject env variables
         uses: rlespinasse/github-slug-action@v4.4.1
