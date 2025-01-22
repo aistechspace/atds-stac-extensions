@@ -3,7 +3,6 @@
     "$id": "https://aistechspace.github.io/atds-stac-extensions/v0.0.1/schema.json",
     "title": "ATDS Extension",
     "description": "STAC ATDS Extension for STAC Items and STAC Collections.",
-    "type": "object",
     "required": [
       "stac_extensions"
     ],
@@ -15,6 +14,7 @@
         }
       }
     },
+
     "oneOf": [
       {
         "$comment": "This is the schema for STAC Items.",
@@ -25,16 +25,24 @@
         "properties": {
           "type": {
             "const": "Feature"
+          },
+          "properties": {
+            "allOf": [
+              {
+                "required": [
+                  "atds:project",
+                  "atds:organization"
+                ]
+              },
+              {
+                "$ref": "#/definitions/atds_fields"
+              }
+            ]
           }
-        },
-        "allOf": [
-          {
-            "$ref": "#/definitions/atds_fields"
-          }
-        ]
+        }
       },
       {
-        "$comment": "This is the schema for STAC Collections.",
+        "$comment": "This is the schema for STAC Items.",
         "type": "object",
         "required": [
           "type"
@@ -42,34 +50,42 @@
         "properties": {
           "type": {
             "const": "Collection"
+          },
+          "properties": {
+            "allOf": [
+              {
+                "required": [
+                  "atds:project",
+                  "atds:organization"
+                ]
+              },
+              {
+                "$ref": "#/definitions/atds_fields"
+              }
+            ]
           }
-        },
-        "allOf": [
-          {
-            "$ref": "#/definitions/atds_fields"
-          }
-        ]
+        }
       }
     ],
     "definitions": {
       "atds_fields": {
-        "type": "object",
-        "properties": {
-          "atds:project": {
-            "$ref": "#/definitions/atds:project"
-          },
-          "atds:organization": {
-            "$ref": "#/definitions/atds:organization"
+          "type": "object",
+          "properties": {
+            "atds:project": {
+              "$ref": "#/definitions/atds:project"
+            },
+            "atds:organization": {
+              "$ref": "#/definitions/atds:organization"
+            }
           }
+        },
+        "atds:project": {
+          "type": "string",
+          "minLength": 1
+        },
+        "atds:organization": {
+          "type": "string",
+          "minLength": 1
         }
-      },
-      "atds:project": {
-        "type": "string",
-        "minLength": 1
-      },
-      "atds:organization": {
-        "type": "string",
-        "minLength": 1
-      }
     }
   }
