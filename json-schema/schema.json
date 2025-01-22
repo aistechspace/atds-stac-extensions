@@ -3,7 +3,19 @@
     "$id": "https://aistechspace.github.io/atds-stac-extensions/v0.0.1/schema.json",
     "title": "ATDS Extension",
     "description": "STAC ATDS Extension for STAC Items and STAC Collections.",
-    "allOf": [
+    "required": [
+      "stac_extensions"
+    ],
+    "properties": {
+      "stac_extensions": {
+        "type": "array",
+        "contains": {
+          "const": "https://aistechspace.github.io/atds-stac-extensions/v0.0.1/schema.json"
+        }
+      }
+    },
+
+    "oneOf": [
       {
         "$comment": "This is the schema for STAC Items.",
         "type": "object",
@@ -30,24 +42,32 @@
         }
       },
       {
-        "$ref": "#/definitions/stac_extensions"
+        "$comment": "This is the schema for STAC Items.",
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "const": "Collection"
+          },
+          "properties": {
+            "allOf": [
+              {
+                "required": [
+                  "atds:project",
+                  "atds:organization"
+                ]
+              },
+              {
+                "$ref": "#/definitions/atds_fields"
+              }
+            ]
+          }
+        }
       }
     ],
     "definitions": {
-      "stac_extensions": {
-        "type": "object",
-        "required": [
-          "stac_extensions"
-        ],
-        "properties": {
-          "stac_extensions": {
-            "type": "array",
-            "contains": {
-              "const": "https://aistechspace.github.io/atds-stac-extensions/v0.0.1/schema.json"
-            }
-          }
-        }
-      },
       "atds_fields": {
           "type": "object",
           "properties": {
